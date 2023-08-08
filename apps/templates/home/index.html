@@ -1,0 +1,294 @@
+{% extends "base/base.html" %}
+
+{% block title %}Amos' Blog{% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="page-header" data-parallax="true" style="background-image: url('../static/assets//img/daniel-olahh.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center">
+            <h1>Welcome To Amos' Blog</h1>
+            <h3> Where you publish your passions with ease, by creating a unique and beautiful blog.</h3>
+            <br/>
+            <a href="{{ url_for('authentication_blueprint.login') }}" class="btn btn-outline-neutral btn-round"><i
+                    class=""></i>Create Your Post</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="main">
+    <div class="section landing-section">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <hr class=""/>
+                    <!-- Post preview-->
+                    {% if not all_post: %}
+                    <h2>No Blog Post Yet</h2>
+
+
+                    {% else: %}
+                    {% for post in all_post: %}
+                    <div class="post-preview">
+                        {% if logged_in %}
+                        <a href="{{ url_for('home_blueprint.read_post', post_id=post.id) }}">
+                            <h2 class="title" style="font-weight: bold">{{ post.title }}</h2>
+                            <h3 class="title text-danger" style="font-size: 25px">{{ post.subtitle }}</h3>
+                        </a>
+                        <p class="post-meta">Posted by<a
+                                href="{{ url_for('home_blueprint.read_post', post_id=post.id) }}" class="text-danger"
+                                style="font-weight: bold">
+                            {{ post.post_author.name }}</a> on {{ post.date }}
+                        </p>
+                        <hr class="my-4"/>
+                        {% else %}
+                        <a href="{{ url_for('authentication_blueprint.login') }}">
+                            <h2 class="title" style="font-weight: bold">{{ post.title }}</h2>
+                            <h3 class="title text-danger" style="font-size: 25px">{{ post.subtitle }}</h3>
+                        </a>
+                        <p class="post-meta">Posted by<a
+                                href="{{ url_for('authentication_blueprint.login') }}" class="text-danger"
+                                style="font-weight: bold">
+                            {{ post.post_author.name }}</a> on {{ post.date }}
+                        </p>
+                        <hr class="my-4"/>
+                        {% endif %}
+
+                        {% if current_user.id == 1 %}
+                        <div class="clearfix">
+                            <a class="btn btn-secondary float-right mb-2"
+                               href="{{url_for('home_blueprint.edit', post_id=post.id)}}">Edit
+                                Post</a>
+                        </div>
+                        <div class="clearfix">
+                            <a class="btn btn-link btn-danger float-right"
+                               href="{{url_for('home_blueprint.delete', post_id=post.id)}}">Delete
+                                Post</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="title">Let's Talk About What You Get</h2>
+                    <h5 class="description">You have ideas you what to share or you have passion for writing,
+                        whatever’s on your mind, you’re in good company on Amos' Blog. Sign up to discover why lots
+                        of people have been coming to Amos' blog to publish their passion.</h5>
+                    <br>
+                    <a href="#paper-kit" class="btn btn-danger btn-round">More Details</a>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="info">
+                        <div class="icon icon-danger">
+                            <i class="nc-icon nc-album-2"></i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Easy to Use Dashboard</h4>
+                            <p class="description">Spend more time generating new idea and less time implementing
+                                them.</p>
+                            <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info">
+                        <div class="icon icon-danger">
+                            <i class="nc-icon nc-check-2"></i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Earn money</h4>
+                            <p>
+                                Get paid for your hard work. Google AdSense can automatically display relevant targeted
+                                ads on your blog so that you can earn income by posting about your passion.
+                            </p>
+                            <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info">
+                        <div class="icon icon-danger">
+                            <i class="nc-icon nc-planet"></i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Social Community</h4>
+                            <p>Get in touch with other bloggers to share idea, read posts from others</p>
+                            <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info">
+                        <div class="icon icon-danger">
+                            <i class="nc-icon nc-chart-bar-32"></i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Get Trending Topics</h4>
+                            <p>Amos' Blog built-in analytics. You’ll see trending topics to write about.</p>
+                            <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section section-dark text-center">
+        <div class="container">
+            <h2 class="title">Let's talk about us</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#avatar">
+                                <img src="../static/assets/img/faces/clem-onojeghuo-3.jpg" alt="image">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#paper-kit">
+                                <div class="author">
+                                    <h4 class="card-title">Amos Okpe</h4>
+                                    <h6 class="card-category">Blog Manager</h6>
+                                </div>
+                            </a>
+                            <p class="card-description text-center">
+                                Teamwork is so important that it is virtually impossible for you to reach the heights of
+                                your capabilities or make the money that you want without becoming very good at it.
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-twitter"></i></a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-google-plus"></i></a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#avatar">
+                                <img src="../static/assets/img/faces/joe-gardner-2.jpg" alt="...">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#paper-kit">
+                                <div class="author">
+                                    <h4 class="card-title">Louis Lane</h4>
+                                    <h6 class="card-category">Manager</h6>
+                                </div>
+                            </a>
+                            <p class="card-description text-center">
+                                A group becomes a team when each member is sure enough of himself and his contribution
+                                to praise the skill of the others. No one can whistle a symphony. It takes an orchestra
+                                to play it.
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-twitter"></i></a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-google-plus"></i></a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-profile card-plain">
+                        <div class="card-avatar">
+                            <a href="#avatar">
+                                <img src="../static/assets/img/faces/Amos.png" alt="Amos-image">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#paper-kit">
+                                <div class="author">
+                                    <h4 class="card-title">Python Decorator</h4>
+                                    <h6 class="card-category">Developer</h6>
+                                </div>
+                            </a>
+                            <p class="card-description text-center">
+                                The strength of the team is each individual member. The strength of each member is the
+                                team. If you can laugh together, you can work together, silence isn’t golden, it’s
+                                deadly.
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-twitter"></i></a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-google-plus"></i></a>
+                            <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i
+                                    class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section landing-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto">
+                <h2 class="text-center">Keep in touch?</h2>
+                <form class="contact-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="nc-icon nc-single-02"></i>
+                      </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="nc-icon nc-email-85"></i>
+                      </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
+                    <label>Message</label>
+                    <textarea class="form-control" rows="4"
+                              placeholder="Tell us your thoughts and feelings..."></textarea>
+                    <div class="row">
+                        <div class="col-md-4 ml-auto mr-auto">
+                            <button class="btn btn-danger btn-lg btn-fill">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

@@ -1,0 +1,73 @@
+{% extends "base/base.html" %}
+
+{% block title %}Amos' Blog{% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{{ ckeditor.load() }}
+
+{% block content %}
+<div class="page-header" data-parallax="true" style="background-image: url('../static/assets//img/joshua-stannard.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center">
+            <h1>Edit Profile</h1>
+            <h3>Make your profile stand out</h3>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+    <div class="section landing-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="text-center">Update Your Profile</h2>
+                    <form class="contact-form" method="POST" action="{{ url_for('profile_blueprint.edit_profile') }}" novalidate
+                    enctype=multipart/form-data>
+                        {{ form.csrf_token }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.profile_img.label(class="form-label") }}
+                                {{ form.profile_img(class="form-control") }}
+                                {% for error in form.profile_img.errors %}
+                                <span style="color: red"> {{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-12">
+                                {{ form.profession.label(class="form-label") }}
+                                {{ form.profession(class="form-control") }}
+                                {% for error in form.profession.errors %}
+                                <span style="color: red"> {{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-12">
+                                {{ form.bio.label(class="form-label") }}
+                                {{ form.bio(class="form-control") }}
+                                {% for error in form.bio.errors %}
+                                <span style="color: red"> {{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 ml-auto mr-auto">
+                                {{ form.submit(class="btn btn-danger btn-lg btn-fill") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://cdn.ckeditor.com/4.10.0/full-all/ckeditor.js"></script>
+{% endblock javascripts %}

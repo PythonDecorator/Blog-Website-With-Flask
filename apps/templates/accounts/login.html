@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="page-header" style="background-image: url('../static/assets/img/login-image.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 ml-auto mr-auto">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span><b> Oops! - </b> {{ message }}</span>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="card card-register">
+                    <h3 class="title mx-auto">Welcome</h3>
+                    <div class="social-line text-center">
+                        <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
+                            <i class="fa fa-facebook-square"></i>
+                        </a>
+                        <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                        <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                    <form class="register-form" method="POST" action="{{ url_for('authentication_blueprint.login') }}">
+                        {{ form.csrf_token }}
+
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(type="email", class="form-control", placeholder="Email") }}
+
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(type="password", class="form-control", placeholder="Password") }}
+
+                        {{ form.submit(class="btn btn-danger btn-block btn-round") }}
+                    </form>
+                    <div class="forgot">
+                        <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

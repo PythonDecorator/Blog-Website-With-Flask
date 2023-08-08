@@ -1,0 +1,91 @@
+{% extends "base/base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="page-header page-header-xs" data-parallax="true"
+     style="background-image: url('../static/assets/img/fabio-mangione.jpg');">
+    <div class="filter"></div>
+</div>
+<div class="section profile-content">
+    <div class="container">
+        <div class="owner">
+            <div class="avatar">
+                <img src="{{ current_user.email | gravatar }}" alt="Circle Image"
+                     class="img-circle img-no-padding img-responsive">
+            </div>
+            <div class="name">
+                <h4 class="title">{{current_user.name}}
+                    <br/>
+                </h4>
+                <h6 class="description">Add Profession</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto text-center">
+                <p>Add Bio to your profile</p>
+                <br/>
+                <a href="{{ url_for('profile_blueprint.profile') }}"
+                       class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i>Edit Profile</a>
+            </div>
+        </div>
+        <br/>
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#follows" role="tab">Suggested For You</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content following">
+            <div class="tab-pane active" id="follows" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <ul class="list-unstyled follows">
+                            {% for user in users_db %}
+                            {% if user.id != current_user.id %}
+                            <li>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-4 col-4 ml-auto mr-auto">
+                                        <img src="{{ user.email | gravatar }}" alt="Circle Image"
+                                             class="img-circle img-no-padding img-responsive">
+                                    </div>
+                                    <div class="col-lg-7 col-md-4 col-4  ml-auto mr-auto">
+                                        <h6>{{ user.name }}
+                                            <br/>
+                                            <small>{{ user.email }}</small>
+                                        </h6>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-4  ml-auto mr-auto">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane text-center" id="following" role="tabpanel">
+                <h3 class="text-muted">Not following anyone yet :(</h3>
+                <button class="btn btn-warning btn-round">Find artists</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

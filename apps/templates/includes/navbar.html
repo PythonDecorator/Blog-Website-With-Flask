@@ -1,0 +1,67 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="300">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="{{ url_for('home_blueprint.index') }}" rel="tooltip" title="Amos' Blog"
+               data-placement="bottom" target="_blank">
+                Amos' Blog
+            </a>
+            <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+                {% if not logged_in %}
+                <li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom"
+                       href="https://twitter.com/AmosBrymo67154" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                        <p class="d-lg-none">Twitter</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="Like us on Linkedin" data-placement="bottom"
+                       href="https://www.linkedin.com/in/amos-okpe-48b824217/" target="_blank">
+                        <i class="fa fa-facebook-square"></i>
+                        <p class="d-lg-none">Linkedin</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom"
+                       href="https://www.instagram.com/pythondecorator/" target="_blank">
+                        <i class="fa fa-instagram"></i>
+                        <p class="d-lg-none">Instagram</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" rel="tooltip" title="Star on GitHub" data-placement="bottom"
+                       href="https://github.com/PythonDecorator" target="_blank">
+                        <i class="fa fa-github"></i>
+                        <p class="d-lg-none">GitHub</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('authentication_blueprint.register') }}"
+                       class="btn btn-success-neutral btn-round">SIGN-UP</a>
+                </li>
+                {% else %}
+                 <li class="nav-item">
+                    <a href="{{ url_for('home_blueprint.add') }}"
+                       class="btn btn-success-neutral btn-round">Create Post</a>
+
+                     <a href="{{ url_for('profile_blueprint.profile') }}"
+                       class="btn btn-success-neutral btn-round">Dashboard</a>
+
+                    <a href="{{ url_for('authentication_blueprint.logout') }}"
+                       class="btn btn-success-neutral btn-round">SIGN-OUT</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->

@@ -1,0 +1,80 @@
+{% extends "base/base.html" %}
+
+{% block title %}Edit Post{% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{{ ckeditor.load() }}
+
+{% block content %}
+<div class="page-header" data-parallax="true" style="background-image: url('../static/assets//img/daniel-olahh.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center">
+            <h1>Edi Post</h1>
+            <h3>{{ post.title }}</h3>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+    <div class="section landing-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="text-center">Edt Your Post</h2>
+                    <form class="contact-form" method="POST" action="{{ url_for('home_blueprint.add') }}" novalidate>
+                        {{ form.csrf_token }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form.title.label(class="form-label") }}
+                                {{ form.title(class="form-control", value=post.title) }}
+                                {% for error in form.title.errors %}
+                                <span style="color: red"> {{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-12">
+                                {{ form.subtitle.label(class="form-label") }}
+                                {{ form.subtitle(class="form-control", value=post.subtitle) }}
+                                {% for error in form.subtitle.errors %}
+                                <span style="color: red"> {{ error }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-12">
+                                {{ form.img_url.label(class="form-label") }}
+                                {{ form.img_url(class="form-control", value=post.img_url) }}
+                                {% for error in form.img_url.errors %}
+                                <span style="color: red"> {{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {{ form.body.label(class="form-label") }}
+                        {{ ckeditor.create(name='body', value=post.body) }}
+
+                        {% for error in form.body.errors %}
+                        <span style="color: red"> {{ error }}</span>
+                        {% endfor %}
+
+                        <div class="row">
+                            <div class="col-md-4 ml-auto mr-auto">
+                                {{ form.submit(class="btn btn-danger btn-lg btn-fill") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://cdn.ckeditor.com/4.10.0/full-all/ckeditor.js"></script>
+{% endblock javascripts %}
