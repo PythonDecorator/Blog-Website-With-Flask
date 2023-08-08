@@ -1,16 +1,15 @@
 import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 class Config(object):
     """The Config base class contains settings that are common to all configurations; the different subclasses define
       settings that are specific to a configuration. Additional configurations can be added as needed"""
 
-    basedir = os.path.abspath(os.path.dirname(__file__))
-
     # SECRET_KEY, due to its sensitive nature, can be set in the environment,
     # but a default value is provided in case the environment does not define it.
     SECRET_KEY = os.getenv('SECRET_KEY')
-    print(SECRET_KEY)
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
@@ -40,11 +39,7 @@ class DevelopmentConfig(Config):
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL')
-
-    # # Using the data directly. Not recommended.
-    # This will create a file in <apps> folder.
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data_test.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "db.sqlite3")
 
 
 class ProductionConfig(Config):
@@ -66,9 +61,7 @@ class ProductionConfig(Config):
     #     os.getenv('DB_NAME')
     # )
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL')
-
-    print(SQLALCHEMY_DATABASE_URI)
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "db.sqlite3")
 
 
 # The different configurations of the script are registered in a config dictionary.
