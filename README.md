@@ -31,7 +31,7 @@
 <br />
 
 ## Demo
-![demo-blog.gif](..%2FDone%2FBlog%20Website%2Fdemo-blog.gif)
+![demo-blog.gif](apps/static/assets/demo/demo-blog.gif)
 - **Blog Website With Flask - See Live Website** [Website](https://amos-blog.onrender.com)
 
 <br />
